@@ -43,6 +43,10 @@ public class AppNameList {
                 AppNameClass = "Chrome";
                 break;
 
+            case CNN:
+                AppNameClass = "CNN";
+                break;
+
             case NewDcard:
             case Dcard:
                 AppNameClass = "Dcard";
