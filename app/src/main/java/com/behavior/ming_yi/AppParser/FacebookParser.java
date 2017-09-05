@@ -27,6 +27,7 @@ public class FacebookParser extends AppTempleteParser {
         List<AccessibilityNodeInfo> CacheNews1Nodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.facebook.katana:id/browser_chrome");
         List<AccessibilityNodeInfo> CacheNews2Nodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.facebook.katana:id/recycler_view");
         List<AccessibilityNodeInfo> CacheVideoNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.facebook.katana:id/feed_story_message");
+        List<AccessibilityNodeInfo> CacheNews3Nodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.facebook.katana:id/webview_container");
 
 
         if(CacheNews1Nodes.size() > 0){
@@ -50,9 +51,68 @@ public class FacebookParser extends AppTempleteParser {
                 data.append(VideoNode.getContentDescription()+"\n");
         }
 
+        if(CacheNews3Nodes.size()>0){
+            AccessibilityNodeInfo node3=CacheNews3Nodes.get(0);
+
+            data=SerachClassName(node3,"android.view.View",data);
+            Log.e("Aaaaaaaaaa",data.toString());
+//            Log.e("xxxxx",Integer.toString(CacheNews3Nodes.get(0).getChildCount()));
+//            Log.e("xxxxx",node3.getChild(0).getChild(0).toString());
+
+
+//            if(node3.getChild(0).getContentDescription()!=null)
+//                Log.e("YYYYYYY:",node3.getChild(0).getContentDescription().toString());
+//            else
+//                Log.e("YYYYYYY:","12312132");
+
+
+//            List<AccessibilityNodeInfo> ContentNodes3 =null;
+//            ContentNodes3 = SerachClassName(CacheNews3Nodes.get(0),"android.view.View",ContentNodes3);
+//            if(ContentNodes3.size()!=0){
+//                for(int i=0;i<ContentNodes3.size()-1;i++){
+//                    if(ContentNodes3.get(i).getContentDescription()!=null){
+//                        data.append(ContentNodes3.get(i).getContentDescription()+"\n");
+//                    }
+//                }
+//            }
+//            ContentNodes3.getContentDescription();
+        }
+
 
         Log.i(TAG,data.toString());
         return data.toString();
+    }
+
+
+
+
+
+    private StringBuilder SerachClassName(AccessibilityNodeInfo CacheNode,String name,StringBuilder data){
+//        AccessibilityNodeInfo data=null;
+
+        int CacheNodechildcount = CacheNode.getChildCount();
+//        Log.e("APP_POUTPUT:",Integer.toString(CacheNodechildcount));
+        if(CacheNode.getClassName() != null && CacheNode.getClassName().equals(name)) {
+            if(CacheNode.getContentDescription()!=null) {
+                data.append(CacheNode.getContentDescription() + "\n");
+            }
+            if(CacheNodechildcount>0){
+                for(int i=0;i<CacheNodechildcount-1;i++)
+                {
+                    data=SerachClassName(CacheNode.getChild(i),"android.view.View",data);
+                }
+            }
+            else{
+                return data;
+            }
+        }
+        else{
+            for(int i=0; i<CacheNodechildcount ; i++){
+                data=SerachClassName(CacheNode.getChild(i),"android.view.View",data);
+            }
+
+        }
+        return data;
     }
 
 }
