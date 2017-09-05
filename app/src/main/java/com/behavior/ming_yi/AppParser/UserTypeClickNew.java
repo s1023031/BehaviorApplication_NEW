@@ -97,6 +97,48 @@ public class UserTypeClickNew extends AppTempleteParser{
                         data.append(mAccessibilityNodeInfo.getText().toString());
                     }
                     break;
+                case "ChromeNew":
+                    break;
+                case "ChromeOld":
+                    break;
+                case "CNN":
+                    break;
+                case "Cnyes":
+                    break;
+                case "Commonwealth":
+                    break;
+                case "EBCNews":
+                    break;
+                case "ETToday":
+                    break;
+                case "FacebookNews":
+                    break;
+                case "FacebookOld":
+                    break;
+                case "Facebook":
+                    break;
+                case "HTCBrowser":
+                    break;
+                case "Instagram":
+                    break;
+                case "JPTT":
+                    break;
+                case "Line":
+                    break;
+                case "Messenger":
+                    break;
+                case "MoPTT":
+                    break;
+                case "NewDcard":
+                    break;
+                case "Opera":
+                    break;
+                case "Pitt":
+                    break;
+                case "PTTplus":
+                    break;
+                case "TVBS":
+                    break;
 
             }
 
