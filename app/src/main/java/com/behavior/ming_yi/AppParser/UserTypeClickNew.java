@@ -8,6 +8,7 @@ import android.widget.Switch;
 
 import com.behavior.ming_yi.AppTemplete.AppTempleteParser;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -62,22 +63,25 @@ public class UserTypeClickNew extends AppTempleteParser{
             {
                 case "Dcard":
                     Log.e("APP_III",Integer.toString(mAccessibilityNodeInfo.getChildCount()));
-                    if(mAccessibilityNodeInfo.getChildCount() > 7 && mAccessibilityNodeInfo.getChild(3).getText().toString() != "")
-                    {
-                        data.append(mAccessibilityNodeInfo.getChild(3).getText().toString());
-                    }
-                    else if(mAccessibilityNodeInfo.getChildCount() > 3 && mAccessibilityNodeInfo.getChildCount() < 6 )
-                    {
-                        data.append(mAccessibilityNodeInfo.getChild(4).getText().toString());
-                    }
-                    else if(mAccessibilityNodeInfo.getChildCount() > 1 && mAccessibilityNodeInfo.getChildCount() < 4 )
-                    {
-                        data.append(mAccessibilityNodeInfo.getChild(2).getText().toString());
-                    }
-                    else if(mAccessibilityNodeInfo.getText().toString() != "")
-                    {
-                        data.append(mAccessibilityNodeInfo.getText().toString());
-                    }
+                    Log.e("APP_DDD",mAccessibilityNodeInfo.getViewIdResourceName());
+//                    if(mAccessibilityNodeInfo.getChildCount() > 7 && mAccessibilityNodeInfo.getChild(3).getText().toString() != "")
+//                    {
+//                        data.append(mAccessibilityNodeInfo.getChild(3).getText().toString());
+//                    }
+//                    else if(mAccessibilityNodeInfo.getChildCount() > 3 && mAccessibilityNodeInfo.getChildCount() < 6 )
+//                    {
+//                        data.append(mAccessibilityNodeInfo.getChild(4).getText().toString());
+//                    }
+//                    else if(mAccessibilityNodeInfo.getChildCount() > 1 && mAccessibilityNodeInfo.getChildCount() < 4 )
+//                    {
+//                        data.append(mAccessibilityNodeInfo.getChild(2).getText().toString());
+//                    }
+//                    else if(mAccessibilityNodeInfo.getText().toString() != "")
+//                    {
+//                        data.append(mAccessibilityNodeInfo.getText().toString());
+//                    }
+
+//                    data.append(findClickText(mAccessibilityNodeInfo,"com.sparkslab.dcardreader:id/text_title",data));
                     break;
                 case "AppleMediaMagazine":
                     if(mAccessibilityNodeInfo.getText().toString() != "")
@@ -138,6 +142,17 @@ public class UserTypeClickNew extends AppTempleteParser{
                 case "PTTplus":
                     break;
                 case "TVBS":
+                    List<AccessibilityNodeInfo> titleNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/item_title");
+                    List<AccessibilityNodeInfo> contentNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/list_item_title");
+
+//                    Log.e("TVBSS","V"+mAccessibilityNodeInfo.toString());
+
+                    for(int i=0;i<titleNodes.size();i++){
+                        data.append(titleNodes.get(i).getText());
+                    }
+                    for(int i=0;i<contentNodes.size();i++){
+                        data.append(contentNodes.get(i).getText());
+                    }
                     break;
 
             }
@@ -150,4 +165,29 @@ public class UserTypeClickNew extends AppTempleteParser{
     }
 
 
+    private StringBuilder findClickText(AccessibilityNodeInfo CacheNode,String name,StringBuilder data){
+
+//        if(CacheNode.getViewIdResourceName().toString()==null)
+//            Log.e("SRCID","NOTHING");
+//        else
+//            Log.e("SRCID",CacheNode.getViewIdResourceName().toString());
+
+
+        if(CacheNode.getViewIdResourceName().toString()==name){
+            data.append(CacheNode.getText());
+        }
+        else
+        {
+            if(CacheNode.getChildCount()>0){
+                for(int i=0;i<CacheNode.getChildCount()-1;i++)
+                {
+                    data.append(findClickText(CacheNode.getChild(i),name,data));
+                }
+            }
+            else {
+                return data;
+            }
+        }
+        return data;
+    }
 }
