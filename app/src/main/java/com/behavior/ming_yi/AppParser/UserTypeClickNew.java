@@ -235,23 +235,4 @@ public class UserTypeClickNew extends AppTempleteParser{
         return data.toString();
     }
 
-
-    private StringBuilder findClickText(AccessibilityNodeInfo CacheNode,String name,StringBuilder data){
-        if(CacheNode.getViewIdResourceName().toString()==name){
-            data.append(CacheNode.getText());
-        }
-        else
-        {
-            if(CacheNode.getChildCount()>0){
-                for(int i=0;i<CacheNode.getChildCount()-1;i++)
-                {
-                    data.append(findClickText(CacheNode.getChild(i),name,data));
-                }
-            }
-            else {
-                return data;
-            }
-        }
-        return data;
-    }
 }
