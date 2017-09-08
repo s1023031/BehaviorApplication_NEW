@@ -1,6 +1,8 @@
 package com.behavior.ming_yi.AppParser;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.util.ArraySet;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -19,12 +21,14 @@ public class UserTypeClickNew extends AppTempleteParser{
     private String TAG = "App_User";
     String app = null;
     String event = null;
+
     public UserTypeClickNew(Context context, String appname, String event) {
         super(context, appname, event);
         this.app = appname;
         this.event = event;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public String AppTempleteParser(AccessibilityNodeInfo mAccessibilityNodeInfo)
     {
@@ -32,8 +36,7 @@ public class UserTypeClickNew extends AppTempleteParser{
 
         Log.e(TAG,this.app);
         Log.e(TAG,this.event);
-//        TYPE_VIEW_TEXT_CHANGED
-//        TYPE_VIEW_TEXT_SELECTION_CHANGED
+
         if(this.event.equals("TYPE_VIEW_FOCUSED"))
         {
             if(mAccessibilityNodeInfo.isFocusable() && mAccessibilityNodeInfo.isFocused())
@@ -62,26 +65,26 @@ public class UserTypeClickNew extends AppTempleteParser{
             switch(this.app)
             {
                 case "Dcard":
-                    Log.e("APP_III",Integer.toString(mAccessibilityNodeInfo.getChildCount()));
-                    Log.e("APP_DDD",mAccessibilityNodeInfo.getViewIdResourceName());
-//                    if(mAccessibilityNodeInfo.getChildCount() > 7 && mAccessibilityNodeInfo.getChild(3).getText().toString() != "")
-//                    {
-//                        data.append(mAccessibilityNodeInfo.getChild(3).getText().toString());
-//                    }
-//                    else if(mAccessibilityNodeInfo.getChildCount() > 3 && mAccessibilityNodeInfo.getChildCount() < 6 )
-//                    {
-//                        data.append(mAccessibilityNodeInfo.getChild(4).getText().toString());
-//                    }
-//                    else if(mAccessibilityNodeInfo.getChildCount() > 1 && mAccessibilityNodeInfo.getChildCount() < 4 )
-//                    {
-//                        data.append(mAccessibilityNodeInfo.getChild(2).getText().toString());
-//                    }
-//                    else if(mAccessibilityNodeInfo.getText().toString() != "")
-//                    {
-//                        data.append(mAccessibilityNodeInfo.getText().toString());
-//                    }
-
-//                    data.append(findClickText(mAccessibilityNodeInfo,"com.sparkslab.dcardreader:id/text_title",data));
+                    if(mAccessibilityNodeInfo.getChildCount() > 7 && mAccessibilityNodeInfo.getChild(3).getText().toString() != "")
+                    {
+                        Log.e("APP_TTTT",mAccessibilityNodeInfo.getChild(3).toString());
+                        data.append(mAccessibilityNodeInfo.getChild(3).getText().toString());
+                    }
+                    else if(mAccessibilityNodeInfo.getChildCount() > 3 && mAccessibilityNodeInfo.getChildCount() < 6 )
+                    {
+                        Log.e("APP_III",mAccessibilityNodeInfo.getChild(4).toString());
+                        data.append(mAccessibilityNodeInfo.getChild(4).getText().toString());
+                    }
+                    else if(mAccessibilityNodeInfo.getChildCount() > 1 && mAccessibilityNodeInfo.getChildCount() < 4 )
+                    {
+                        Log.e("APP_III",mAccessibilityNodeInfo.getChild(2).toString());
+                        data.append(mAccessibilityNodeInfo.getChild(2).getText().toString());
+                    }
+                    else if(mAccessibilityNodeInfo.getText().toString() != "")
+                    {
+                        Log.e("APP_III",mAccessibilityNodeInfo.toString());
+                        data.append(mAccessibilityNodeInfo.getText().toString());
+                    }
                     break;
                 case "AppleMediaMagazine":
                     if(mAccessibilityNodeInfo.getText().toString() != "")
@@ -106,10 +109,46 @@ public class UserTypeClickNew extends AppTempleteParser{
                 case "ChromeOld":
                     break;
                 case "CNN":
+                    List <AccessibilityNodeInfo> title,article_title,article;
+                    title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.cnn.mobile.android.phone:id/article_headline");
+                    article_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.cnn.mobile.android.phone:id/item_feed_articlehead_headline");
+                    article = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.cnn.mobile.android.phone:id/item_article_paragraph_text");
+
+                    if(title.size() > 0)
+                    {
+                        if(title.get(0).getText() != null)
+                        {
+                            data.append(title.get(0).getText().toString());
+                        }
+
+                    }
+                    else if(article_title.size() > 0)
+                    {
+                        if(article_title.get(0).getText() != null)
+                        {
+                            data.append(article_title.get(0).getText().toString());
+                        }
+                    }
+
+                    else if(article.size() > 0)
+                    {
+                        if(article.get(0).getText() != null)
+                        {
+                            data.append(article.get(0).getText().toString());
+                        }
+                    }
+
+                    else if(title.size() == 0 &&  article_title.size() == 0 && article.size() == 0)
+                    {
+                        Log.e("APP_NULL",title.toString());
+                        return null;
+                    }
+
                     break;
                 case "Cnyes":
                     break;
                 case "Commonwealth":
+                    Log.e("APP_D","DDD");
                     break;
                 case "EBCNews":
                     break;
