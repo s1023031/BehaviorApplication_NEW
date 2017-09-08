@@ -125,38 +125,70 @@ public class UserTypeClickNew extends AppTempleteParser{
                     break;
                 case "Instagram":
                     break;
-                case "JPTT":
+                case "JPTT":// 還無法登入
                     break;
-                case "Line":
+                case "Line":// 需要小帳號來弄
                     break;
-                case "Messenger":
+                case "Messenger": // 目前沒有事件可以導到這裡
                     break;
                 case "MoPTT":
+                    //　主選單分類看板
+                    List<AccessibilityNodeInfo> MoPTT_MainBoardTitle = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("mong.moptt:id/board_item_name");
+                    //  子分類項目
+                    List<AccessibilityNodeInfo> MoPTT_SubBoardTitle = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("mong.moptt:id/post_item_title");
+
+                    //　主選單分類看板
+                    if(MoPTT_MainBoardTitle.size()>0){
+                        for(int i=0;i<MoPTT_MainBoardTitle.size();i++)
+                        {
+                            data.append(MoPTT_MainBoardTitle.get(i).getText());
+//                            Log.e("APP_MOPTTMain",MoPTT_MainBoardTitle.get(i).getText().toString());
+                        }
+                    }
+                    else if(MoPTT_SubBoardTitle.size()>0){
+                        for(int i=0;i<MoPTT_SubBoardTitle.size();i++)
+                        {
+                            data.append(MoPTT_SubBoardTitle.get(i).getText());
+//                            Log.e("APP_MOPTTSub",MoPTT_SubBoardTitle.get(i).getText().toString());
+                        }
+                    }
+                    else{
+                        //  內文
+                        data.append(mAccessibilityNodeInfo.getText());
+//                        Log.e("APP_MOPTTContent",mAccessibilityNodeInfo.getText().toString());
+                    }
                     break;
-                case "NewDcard":
+                case "NewDcard":// 最後再做
                     break;
                 case "Opera":
+                    List<AccessibilityNodeInfo> Opera_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.opera.browser:id/title");
+
+                    for(int i=0 ;i<Opera_title.size();i++)
+                    {
+                        data.append(Opera_title.get(i).getText());
+                    }
+
+                    if(mAccessibilityNodeInfo.getClassName().equals("android.view.View"))
+                    {
+                        data.append(mAccessibilityNodeInfo.getContentDescription().toString());
+                    }
                     break;
-                case "Pitt":
+                case "Pitt":// 還無法登入
                     break;
-                case "PTTplus":
+                case "PTTplus":// 還無法登入
                     break;
                 case "TVBS":
-                    List<AccessibilityNodeInfo> titleNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/item_title");
-                    List<AccessibilityNodeInfo> contentNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/list_item_title");
+                    List<AccessibilityNodeInfo> TVBS_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/item_title");
+                    List<AccessibilityNodeInfo> TVBS_contentNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/list_item_title");
 
-//                    Log.e("TVBSS","V"+mAccessibilityNodeInfo.toString());
-
-                    for(int i=0;i<titleNodes.size();i++){
-                        data.append(titleNodes.get(i).getText());
+                    for(int i=0;i<TVBS_title.size();i++){
+                        data.append(TVBS_title.get(i).getText());
                     }
-                    for(int i=0;i<contentNodes.size();i++){
-                        data.append(contentNodes.get(i).getText());
+                    for(int i=0;i<TVBS_contentNodes.size();i++){
+                        data.append(TVBS_contentNodes.get(i).getText());
                     }
                     break;
-
             }
-
         }
         if(data.toString().length() == 0) return null;
         Log.e(TAG,mAccessibilityNodeInfo.toString());
@@ -166,13 +198,6 @@ public class UserTypeClickNew extends AppTempleteParser{
 
 
     private StringBuilder findClickText(AccessibilityNodeInfo CacheNode,String name,StringBuilder data){
-
-//        if(CacheNode.getViewIdResourceName().toString()==null)
-//            Log.e("SRCID","NOTHING");
-//        else
-//            Log.e("SRCID",CacheNode.getViewIdResourceName().toString());
-
-
         if(CacheNode.getViewIdResourceName().toString()==name){
             data.append(CacheNode.getText());
         }
