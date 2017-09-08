@@ -49,8 +49,20 @@ public class CommonwealthParser extends AppTempleteParser {
         if(CacheNodes.size() == 0) return null;
 
 //        WebView
-        List<AccessibilityNodeInfo> webNodes = CacheNodes.get(0).findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/layout_web");
-        if(webNodes.size() == 0) return null;
+        List<AccessibilityNodeInfo> webNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/layout_web");
+        if(webNodes.size() == 0)
+            return null;
+        else
+        {
+            AccessibilityNodeInfo FinalWebview = webNodes.get(0).getChild(0).getChild(0);
+            for(int i=0;i<FinalWebview.getChildCount()-1;i++)
+            {
+                if(FinalWebview.getChild(i).getClassName().equals("android.view.View") && FinalWebview.getChild(i).getContentDescription()!=null){
+                    data.append(FinalWebview.getChild(i).getContentDescription() + "\n" );
+                }
+            }
+        }
+
         if(webNodes.get(0).getChildCount() == 0) return null;
         if(webNodes.get(0).getChild(0).getChildCount() == 0) return null;
         AccessibilityNodeInfo FinalWebview = webNodes.get(0).getChild(0).getChild(0);
@@ -64,4 +76,34 @@ public class CommonwealthParser extends AppTempleteParser {
         Log.i(TAG,data.toString());
         return data.toString();
     }
+
+
+
+//    private StringBuilder SerachClassName(AccessibilityNodeInfo CacheNode,String name,StringBuilder data){
+////        AccessibilityNodeInfo data=null;
+//
+//        int CacheNodechildcount = CacheNode.getChildCount();
+////        Log.e("APP_POUTPUT:",Integer.toString(CacheNodechildcount));
+//        if(CacheNode.getClassName() != null && CacheNode.getClassName().equals(name)) {
+//            if(CacheNode.getContentDescription()!=null) {
+//                data.append(CacheNode.getContentDescription() + "\n");
+//            }
+//            if(CacheNodechildcount>0){
+//                for(int i=0;i<CacheNodechildcount-1;i++)
+//                {
+//                    data=SerachClassName(CacheNode.getChild(i),"android.view.View",data);
+//                }
+//            }
+//            else{
+//                return data;
+//            }
+//        }
+//        else{
+//            for(int i=0; i<CacheNodechildcount ; i++){
+//                data=SerachClassName(CacheNode.getChild(i),"android.view.View",data);
+//            }
+//
+//        }
+//        return data;
+//    }
 }
