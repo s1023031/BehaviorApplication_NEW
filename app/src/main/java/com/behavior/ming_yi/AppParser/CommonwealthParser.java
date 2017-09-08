@@ -30,13 +30,7 @@ public class CommonwealthParser extends AppTempleteParser {
         if(CacheTitleNodes.size() == 0) return  null;
         if(CacheTitleNodes.get(0).getText() != null)
             data.append(CacheTitleNodes.get(0).getText()+"\n");
-
-        List<AccessibilityNodeInfo> CacheTitleNodes2 = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/layout_content");
-        if(CacheTitleNodes2.size() != 0) Log.e("APP_DS",Integer.toString(CacheTitleNodes2.size()));
-        Log.e("APP_FF",CacheTitleNodes2.get(0).getChild(1).toString());
-//        if(CacheTitleNodes2.get(0).getText() != null)
-//            data.append(CacheTitleNodes2.get(0).getText()+"\n");
-
+        
 
 //        preface
 
