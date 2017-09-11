@@ -148,17 +148,74 @@ public class UserTypeClickNew extends AppTempleteParser{
                 case "Cnyes":
                     break;
                 case "Commonwealth":
-                    Log.e("APP_D","DDD");
+                    Log.e("APP_OOPS",mAccessibilityNodeInfo.toString());
+                    List <AccessibilityNodeInfo> title_cw = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/firstText_title");
+                    List <AccessibilityNodeInfo> title_text = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/text_title");
+                    List <AccessibilityNodeInfo> text_preface = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/text_preface");
+                    List <AccessibilityNodeInfo> text_author = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ingree.cwwebsite:id/text_author");
+
+                    if(mAccessibilityNodeInfo.getContentDescription() != null)
+                    {
+                        data.append(mAccessibilityNodeInfo.getContentDescription().toString());
+
+                    }
+
+                    else if(title_cw.get(0).getText() != null)
+                    {
+                        data.append(title_cw.get(0).getText().toString());
+                    }
+
+                    else if(title_text.get(0).getText() != null)
+                    {
+                        data.append(title_text.get(0).getText().toString());
+                    }
+
+                    else if(text_preface.get(0).getText() != null)
+                    {
+                        data.append(text_preface.get(0).getText().toString());
+                    }
+
+                    else if(text_author.get(0).getText() != null)
+                    {
+                        data.append(text_author.get(0).getText().toString());
+                    }
+                    else
+                        return null;
+
+
+
                     break;
                 case "EBCNews":
                     break;
                 case "ETToday":
+
+                    if(mAccessibilityNodeInfo != null)
+                    {
+                        if(mAccessibilityNodeInfo.getContentDescription() != null)
+                        {
+                            data.append(mAccessibilityNodeInfo.getContentDescription().toString());
+                        }
+                    }
                     break;
                 case "FacebookNews":
+                    Log.e("APP_LLLL",mAccessibilityNodeInfo.toString());
                     break;
                 case "FacebookOld":
+                    Log.e("APP_RRRR",mAccessibilityNodeInfo.toString());
                     break;
                 case "Facebook":
+                    //打開網頁後有些第一段click不到，之後修改
+                    if(mAccessibilityNodeInfo.getContentDescription() != null)
+                    {
+                        data.append(mAccessibilityNodeInfo.getContentDescription().toString());
+                        break;
+                    }
+
+                    List <AccessibilityNodeInfo> text = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.facebook.katana:id/richdocument_text");
+                    if(text.size() > 0)
+                    {
+                        data.append(text.get(0).getText().toString());
+                    }
                     break;
                 case "HTCBrowser":
                     break;
