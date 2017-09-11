@@ -61,7 +61,7 @@ public class EBCnewsParser extends AppTempleteParser {
             data.append(str_context);
         }
 
-        Log.i(TAG,data.toString());
+        Log.i(TAG,"EBCnews => "+data.toString());
         return data.toString();
     }
 
