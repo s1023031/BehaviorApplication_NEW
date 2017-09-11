@@ -27,11 +27,9 @@ public class EBCnewsParser extends AppTempleteParser {
         StringBuilder data = new StringBuilder();
         List<AccessibilityNodeInfo> CacheNodes = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ebc.news:id/coordinatorLayout");
 
-
-        String hh = Integer.toString(CacheNodes.get(0).getChild(0).getChildCount());
-        //Log.e("NUM",CacheNodes.get(0).getChild(0).getText().toString() + ":" + Integer.toString(CacheNodes.size()));
-        Log.e("NUM",CacheNodes.toString());
-
+        if(CacheNodes.size()==0){
+            return null;
+        }
         AccessibilityNodeInfo FinalNode = SerachClassName(CacheNodes.get(0),"android.webkit.WebView");
         if(FinalNode == null) return null;
         if(FinalNode.getChildCount() == 0) return null;
@@ -41,9 +39,8 @@ public class EBCnewsParser extends AppTempleteParser {
 
         if(FinalNode.getChild(0).getContentDescription() != null)
         {
-            Log.e("APP_OO",FinalNode.getChild(0).toString());
+//            Log.e("APP_OO",FinalNode.getChild(0).toString());
             title.append(FinalNode.getChild(0).getContentDescription().toString());
-
         }
 
         if(FinalNode.getChild(0).getChild(6) != null)
@@ -70,7 +67,6 @@ public class EBCnewsParser extends AppTempleteParser {
 
         int CacheNodechildcount = CacheNode.getChildCount();
         String vv = Integer.toString(CacheNodechildcount);
-
 
         Log.e("HAAA",vv);
         if(CacheNode.getClassName() != null && CacheNode.getClassName().equals(name)) {
