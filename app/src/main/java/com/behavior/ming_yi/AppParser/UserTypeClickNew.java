@@ -28,7 +28,7 @@ public class UserTypeClickNew extends AppTempleteParser{
         this.event = event;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public String AppTempleteParser(AccessibilityNodeInfo mAccessibilityNodeInfo)
     {
@@ -143,14 +143,29 @@ public class UserTypeClickNew extends AppTempleteParser{
                         Log.e("APP_NULL",title.toString());
                         return null;
                     }
-
                     break;
                 case "Cnyes":
                     break;
                 case "Commonwealth":
-                    Log.e("APP_D","DDD");
                     break;
-                case "EBCNews":
+                case "EBCnews":
+                    //　主選單分類看板
+                    List<AccessibilityNodeInfo> EBCNews_MainTitle = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ebc.news:id/title");
+                    List<AccessibilityNodeInfo> EBCNews_body = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("newsBody");
+                    if(EBCNews_MainTitle.size()>0)
+                    {
+                        for(int i=0;i<EBCNews_MainTitle.size();i++)
+                        {
+                            data.append(EBCNews_MainTitle.get(i).getText());
+                        }
+                    }
+                    else
+                    {
+                        for(int i=0;i<mAccessibilityNodeInfo.getChildCount();i++)
+                        {
+                            data.append(mAccessibilityNodeInfo.getChild(i).getContentDescription());
+                        }
+                    }
                     break;
                 case "ETToday":
                     break;
@@ -162,7 +177,7 @@ public class UserTypeClickNew extends AppTempleteParser{
                     break;
                 case "HTCBrowser":
                     break;
-                case "Instagram":
+                case "Instagram":// IG的event是TYPE_VIEW_FOCUSED(在前面就會被擋下來了)
                     break;
                 case "JPTT":// 還無法登入
                     break;
@@ -170,7 +185,7 @@ public class UserTypeClickNew extends AppTempleteParser{
                     break;
                 case "Messenger": // 目前沒有事件可以導到這裡
                     break;
-                case "MoPTT":
+                case "MoPTT":// ok
                     //　主選單分類看板
                     List<AccessibilityNodeInfo> MoPTT_MainBoardTitle = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("mong.moptt:id/board_item_name");
                     //  子分類項目
@@ -184,6 +199,7 @@ public class UserTypeClickNew extends AppTempleteParser{
 //                            Log.e("APP_MOPTTMain",MoPTT_MainBoardTitle.get(i).getText().toString());
                         }
                     }
+                    //  子分類項目
                     else if(MoPTT_SubBoardTitle.size()>0){
                         for(int i=0;i<MoPTT_SubBoardTitle.size();i++)
                         {
