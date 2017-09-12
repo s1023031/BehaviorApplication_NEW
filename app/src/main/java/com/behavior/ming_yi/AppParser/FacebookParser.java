@@ -55,7 +55,7 @@ public class FacebookParser extends AppTempleteParser {
             AccessibilityNodeInfo node3=CacheNews3Nodes.get(0);
 
             data=SerachClassName(node3,"android.view.View",data);
-            Log.e("Aaaaaaaaaa",data.toString());
+//            Log.e("Aaaaaaaaaa",data.toString());
 //            Log.e("xxxxx",Integer.toString(CacheNews3Nodes.get(0).getChildCount()));
 //            Log.e("xxxxx",node3.getChild(0).getChild(0).toString());
 
@@ -97,7 +97,7 @@ public class FacebookParser extends AppTempleteParser {
                 data.append(CacheNode.getContentDescription() + "\n");
             }
             if(CacheNodechildcount>0){
-                for(int i=0;i<CacheNodechildcount-1;i++)
+                for(int i=0;i<CacheNodechildcount;i++)
                 {
                     data=SerachClassName(CacheNode.getChild(i),"android.view.View",data);
                 }
