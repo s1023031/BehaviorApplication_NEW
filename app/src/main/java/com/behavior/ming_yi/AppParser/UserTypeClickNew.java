@@ -25,6 +25,8 @@ public class UserTypeClickNew extends AppTempleteParser{
     public UserTypeClickNew(Context context, String appname, String event) {
         super(context, appname, event);
         this.app = appname;
+        if(appname.equals("com.htc.sense.browser"))
+            appname="HTCBrowser";
         this.event = event;
     }
 
@@ -104,9 +106,18 @@ public class UserTypeClickNew extends AppTempleteParser{
                         data.append(mAccessibilityNodeInfo.getText().toString());
                     }
                     break;
-                case "ChromeNew":
-                    break;
-                case "ChromeOld":
+                case "Chrome":
+                    if(mAccessibilityNodeInfo.getText()!=null)
+                    {
+                        data.append(mAccessibilityNodeInfo.getText());
+//                        Log.e("APP_AAAA",mAccessibilityNodeInfo.getText().toString());
+                    }
+                    else
+                    {
+                        data.append(mAccessibilityNodeInfo.getContentDescription());
+//                        Log.e("APP_BBBB",mAccessibilityNodeInfo.getContentDescription().toString());
+                    }
+//                    Log.e("APP_CCCC",mAccessibilityNodeInfo.toString());
                     break;
                 case "CNN":
                     List <AccessibilityNodeInfo> title,article_title,article;
@@ -144,7 +155,7 @@ public class UserTypeClickNew extends AppTempleteParser{
                         return null;
                     }
                     break;
-                case "Cnyes":
+                case "Cnyes"://  Missing google_app_id. Firebase Analytics disabled. See https://goo.gl/NAOOOI
                     break;
                 case "Commonwealth":
                     Log.e("APP_OOPS",mAccessibilityNodeInfo.toString());
@@ -180,9 +191,6 @@ public class UserTypeClickNew extends AppTempleteParser{
                     }
                     else
                         return null;
-
-
-
                     break;
                 case "EBCnews":
                     //　主選單分類看板
