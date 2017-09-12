@@ -30,7 +30,7 @@ public class CommonwealthParser extends AppTempleteParser {
         if(CacheTitleNodes.size() == 0) return  null;
         if(CacheTitleNodes.get(0).getText() != null)
             data.append(CacheTitleNodes.get(0).getText()+"\n");
-        
+
 
 //        preface
 
