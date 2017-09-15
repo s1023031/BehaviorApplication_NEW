@@ -245,7 +245,53 @@ public class UserTypeClickNew extends AppTempleteParser{
                     break;
                 case "Instagram":// IG的event是TYPE_VIEW_FOCUSED(在前面就會被擋下來了)
                     break;
-                case "JPTT":// 還無法登入
+                case "JPTT":
+                    List<AccessibilityNodeInfo> JPTT_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.joshua.jptt:id/textLayout");
+
+                    if(mAccessibilityNodeInfo.getText() != null)
+                    {
+                        data.append(mAccessibilityNodeInfo.getText().toString());
+                    }
+
+                    if(JPTT_title.size() > 0)
+                    {
+                        for(int k = 0; k < JPTT_title.get(0).getChildCount(); k++)
+                        {
+                            if(JPTT_title.get(0).getChild(k).getText() != null)
+                            {
+                                data.append(JPTT_title.get(0).getChild(k).getText().toString()+ "\n");
+                            }
+
+                            else
+                                break;
+                        }
+                    }
+
+
+//                    if(JPTT_content.size() > 0)
+//                    {
+//                        data.append(JPTT_content.get(0).getText());
+//                    }
+//                    if(JPTT_date.size() > 0)
+//                    {
+//                        data.append(JPTT_date.get(0).getText());
+//                    }
+//                    if(JPTT_author.size() > 0)
+//                    {
+//                        data.append(JPTT_author.get(0).getText());
+//                    }
+//                    if(JPTT_pushauthor.size() > 0)
+//                    {
+//                        data.append(JPTT_pushauthor.get(0).getText());
+//                    }
+//                    if(JPTT_pushcontent.size() > 0)
+//                    {
+//                        data.append(JPTT_pushcontent.get(0).getText());
+//                    }
+//                    if(JPTT_pushfloor.size() > 0)
+//                    {
+//                        data.append(JPTT_pushfloor.get(0).getText());
+//                    }
                     break;
                 case "Line":// 需要小帳號來弄
                     break;
@@ -302,6 +348,8 @@ public class UserTypeClickNew extends AppTempleteParser{
                     List<AccessibilityNodeInfo> PiTT_date = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/articleContentDate");
                     List<AccessibilityNodeInfo> PiTT_pushauthor = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/pushItemUsername");
                     List<AccessibilityNodeInfo> PiTT_pushcontent = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/pushItemContent");
+                    List<AccessibilityNodeInfo> PiTT_pushfloor = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId(" com.ihad.ptt:id/pushItemFloor");
+
 
                     if(PiTT_title.size() > 0)
                     {
@@ -327,6 +375,10 @@ public class UserTypeClickNew extends AppTempleteParser{
                     if(PiTT_pushcontent.size() > 0)
                     {
                         data.append(PiTT_pushcontent.get(0).getText());
+                    }
+                    if(PiTT_pushfloor.size() > 0)
+                    {
+                        data.append(PiTT_pushfloor.get(0).getText());
                     }
 
                     break;
