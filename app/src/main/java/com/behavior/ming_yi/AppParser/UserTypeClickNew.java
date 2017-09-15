@@ -266,32 +266,7 @@ public class UserTypeClickNew extends AppTempleteParser{
                                 break;
                         }
                     }
-
-
-//                    if(JPTT_content.size() > 0)
-//                    {
-//                        data.append(JPTT_content.get(0).getText());
-//                    }
-//                    if(JPTT_date.size() > 0)
-//                    {
-//                        data.append(JPTT_date.get(0).getText());
-//                    }
-//                    if(JPTT_author.size() > 0)
-//                    {
-//                        data.append(JPTT_author.get(0).getText());
-//                    }
-//                    if(JPTT_pushauthor.size() > 0)
-//                    {
-//                        data.append(JPTT_pushauthor.get(0).getText());
-//                    }
-//                    if(JPTT_pushcontent.size() > 0)
-//                    {
-//                        data.append(JPTT_pushcontent.get(0).getText());
-//                    }
-//                    if(JPTT_pushfloor.size() > 0)
-//                    {
-//                        data.append(JPTT_pushfloor.get(0).getText());
-//                    }
+                    
                     break;
                 case "Line":// 需要小帳號來弄
                     break;
