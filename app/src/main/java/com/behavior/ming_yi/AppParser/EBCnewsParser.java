@@ -32,7 +32,7 @@ public class EBCnewsParser extends AppTempleteParser {
         AccessibilityNodeInfo bodyNode=CacheNodes.get(0);
         data=SearchClassName(bodyNode,"android.view.View",data);
 
-        Log.i(TAG,"EBCnews => "+data.toString());
+        Log.i(TAG,data.toString());
         return data.toString();
     }
 
