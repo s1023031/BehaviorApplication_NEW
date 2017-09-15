@@ -25,8 +25,8 @@ public class UserTypeClickNew extends AppTempleteParser{
     public UserTypeClickNew(Context context, String appname, String event) {
         super(context, appname, event);
         this.app = appname;
-        if(appname.equals("com.htc.sense.browser"))
-            appname="HTCBrowser";
+//        if(appname.equals("com.htc.sense.browser"))
+//            appname="HTCBrowser";
         this.event = event;
     }
 
@@ -241,13 +241,22 @@ public class UserTypeClickNew extends AppTempleteParser{
                         data.append(text.get(0).getText().toString());
                     }
                     break;
-                case "HTCBrowser":
+                case "com.htc.sense.browser":
+                    if(mAccessibilityNodeInfo.getChildCount()>0)
+                    {
+                        Log.e("APP_HTC",mAccessibilityNodeInfo.toString());
+//                        Log.e("APP_HTC",mAccessibilityNodeInfo.getChild(0).getContentDescription().toString());
+                    }
+//                    Log.e("APP_HTC",Integer.toString(mAccessibilityNodeInfo.getChildCount()));
                     break;
                 case "Instagram":// IG的event是TYPE_VIEW_FOCUSED(在前面就會被擋下來了)
                     break;
                 case "JPTT":// 還無法登入
                     break;
-                case "Line":// 需要小帳號來弄
+                case "Line":
+                    if(mAccessibilityNodeInfo.getContentDescription()!=null) {
+                        data.append(mAccessibilityNodeInfo.getContentDescription());
+                    }
                     break;
                 case "Messenger": // 目前沒有事件可以導到這裡
                     break;
@@ -312,7 +321,7 @@ public class UserTypeClickNew extends AppTempleteParser{
             }
         }
         if(data.toString().length() == 0) return null;
-        Log.e(TAG,mAccessibilityNodeInfo.toString());
+//        Log.e(TAG,mAccessibilityNodeInfo.toString());
         Log.i(TAG,data.toString());
         return data.toString();
     }
