@@ -266,7 +266,7 @@ public class UserTypeClickNew extends AppTempleteParser{
                                 break;
                         }
                     }
-                    
+
                     break;
                 case "Line":// 需要小帳號來弄
                     break;
