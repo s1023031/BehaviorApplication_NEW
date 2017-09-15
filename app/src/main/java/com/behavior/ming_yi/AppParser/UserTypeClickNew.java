@@ -294,7 +294,44 @@ public class UserTypeClickNew extends AppTempleteParser{
                         data.append(mAccessibilityNodeInfo.getContentDescription().toString());
                     }
                     break;
-                case "Pitt":// 還無法登入
+                case "PiTT":
+
+
+                    Log.e("APP_NUM",Integer.toString(mAccessibilityNodeInfo.getChildCount()));
+                    //after entering the article
+                    List<AccessibilityNodeInfo> PiTT_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/articleContentTitle");
+                    List<AccessibilityNodeInfo> PiTT_content = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/normalText");
+                    List<AccessibilityNodeInfo> PiTT_author = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/articleContentAuthor");
+                    List<AccessibilityNodeInfo> PiTT_date = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/articleContentDate");
+                    List<AccessibilityNodeInfo> PiTT_pushauthor = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/pushItemUsername");
+                    List<AccessibilityNodeInfo> PiTT_pushcontent = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/pushItemContent");
+
+                    if(PiTT_title.size() > 0)
+                    {
+                        data.append(PiTT_title.get(0).getText());
+                    }
+
+                    if(PiTT_content.size() > 0)
+                    {
+                        data.append(PiTT_content.get(0).getText());
+                    }
+                    if(PiTT_date.size() > 0)
+                    {
+                        data.append(PiTT_date.get(0).getText());
+                    }
+                    if(PiTT_author.size() > 0)
+                    {
+                        data.append(PiTT_author.get(0).getText());
+                    }
+                    if(PiTT_pushauthor.size() > 0)
+                    {
+                        data.append(PiTT_pushauthor.get(0).getText());
+                    }
+                    if(PiTT_pushcontent.size() > 0)
+                    {
+                        data.append(PiTT_pushcontent.get(0).getText());
+                    }
+
                     break;
                 case "PTTplus":// 還無法登入
                     break;
