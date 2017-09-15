@@ -295,9 +295,6 @@ public class UserTypeClickNew extends AppTempleteParser{
                     }
                     break;
                 case "PiTT":
-
-
-                    Log.e("APP_NUM",Integer.toString(mAccessibilityNodeInfo.getChildCount()));
                     //after entering the article
                     List<AccessibilityNodeInfo> PiTT_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/articleContentTitle");
                     List<AccessibilityNodeInfo> PiTT_content = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.ihad.ptt:id/normalText");
