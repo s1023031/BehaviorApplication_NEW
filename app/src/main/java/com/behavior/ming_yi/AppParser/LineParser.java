@@ -29,6 +29,7 @@ public class LineParser extends AppTempleteParser {
 
         List<AccessibilityNodeInfo> CacheNodes1 = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("jp.naver.line.android:id/text_message_balloon_root");
         List<AccessibilityNodeInfo> WebNewsNode = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("jp.naver.line.android:id/channel_webview_parent");
+        List<AccessibilityNodeInfo> talkWindow = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("jp.naver.line.android:id/message_text");
 
 
         if(CacheNodes1.size() > 0){
@@ -94,6 +95,14 @@ public class LineParser extends AppTempleteParser {
                 if(out == 1)
                     break;
 
+            }
+
+        }
+        if(talkWindow.size()>0)
+        {
+            for(int i=0;i<talkWindow.size();i++)
+            {
+                data.append(talkWindow.get(i).getText());
             }
 
         }
