@@ -32,7 +32,6 @@ public class LineParser extends AppTempleteParser {
         List<AccessibilityNodeInfo> talkWindow = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("jp.naver.line.android:id/message_text");
 
 
-        Log.e("APP_LINE","++++"+talkWindow.toString());
         if(CacheNodes1.size() > 0){
             for(AccessibilityNodeInfo CacheNode : CacheNodes1){
                 if(CacheNode.getChildCount()!=0){
