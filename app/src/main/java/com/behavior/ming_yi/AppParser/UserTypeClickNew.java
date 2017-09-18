@@ -35,7 +35,7 @@ public class UserTypeClickNew extends AppTempleteParser{
     public String AppTempleteParser(AccessibilityNodeInfo mAccessibilityNodeInfo)
     {
         StringBuilder data = new StringBuilder();
-
+        int flag = 0;
         Log.e(TAG,this.app);
         Log.e(TAG,this.event);
 
@@ -398,6 +398,9 @@ public class UserTypeClickNew extends AppTempleteParser{
 
                     for(int k = 0; k < ptt_article.getChildCount(); k++)
                     {
+                        if(ptt_article.getChild(k).getContentDescription().equals("--\n"))
+                            break;
+
                         if(ptt_article.getChild(k).getContentDescription().equals(""))
                         {
                             if(ptt_article.getChild(k).getChildCount() > 0)
