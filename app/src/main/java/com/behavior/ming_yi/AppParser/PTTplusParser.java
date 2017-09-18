@@ -19,48 +19,82 @@ public class PTTplusParser extends AppTempleteParser {
 
     @Override
     public String AppTempleteParser(AccessibilityNodeInfo mAccessibilityNodeInfo) {
+
         if (mAccessibilityNodeInfo == null) return null;
         if (mAccessibilityNodeInfo.getChildCount() == 0) return null;
         StringBuilder data = new StringBuilder();
         AccessibilityNodeInfo ContentNode = SerachClassName(mAccessibilityNodeInfo,"android.view.View");
-        if(ContentNode.getChildCount() == 0) return null;
+        if(ContentNode.getChildCount() < 3) return null;
+        Log.e("APP_EE",Integer.toString(ContentNode.getChildCount()));
         AccessibilityNodeInfo ContentNextNode = ContentNode.getChild(0);
         AccessibilityNodeInfo ContentNextNode2 = ContentNode.getChild(2);
 
-        if(ContentNextNode.getChildCount() < 3 || ContentNextNode2.getChildCount() < 3) return null;
-        if(ContentNextNode.getChild(0).getContentDescription()!=null){
-            data.append(ContentNextNode.getChild(0).getContentDescription()+"\n");
-        }
 
-        if(ContentNextNode.getChild(1).getChildCount() == 0){
-            if(ContentNextNode.getChild(1).getContentDescription() != null)
-            {
-                data.append(ContentNextNode.getChild(1).getContentDescription()+"\n");
-            }
-
-        }
-        else{
-            for(int i=0; i<ContentNextNode.getChild(1).getChildCount(); i++){
-                AccessibilityNodeInfo content = ContentNextNode.getChild(1).getChild(i);
-                if(content.getContentDescription() != null){
-                    data.append(content.getContentDescription()+"\n");
-                }
-            }
-        }
-
-        AccessibilityNodeInfo kk = SerachClassName(ContentNextNode2,"android.view.View");
-        if(kk.getChildCount() != 0)
+        Log.e("APP_EE",ContentNextNode2.toString());
+        if(ContentNextNode.getChildCount() == 0) return null;
+        for(int k = 0; k < ContentNextNode.getChildCount(); k++)
         {
-            for(int s = 0; s< kk.getChildCount() ; s++)
+            if(ContentNextNode.getChild(k).getContentDescription().equals(""))
             {
-                if(kk.getChild(s).getContentDescription().toString() != "")
+                if(ContentNextNode.getChild(k).getChildCount() > 0)
                 {
-                    data.append(kk.getChild(s).getContentDescription().toString());
+                    for(int d = 0; d < ContentNextNode.getChild(k).getChildCount(); d++)
+                    {
+                        if(ContentNextNode.getChild(k).getChild(d).getContentDescription().toString().length() > 0)
+                        {
+                            data.append(ContentNextNode.getChild(k).getChild(d).getContentDescription().toString() + "\n");
+                        }
+
+                    }
                 }
+            }
+            else
+            {
+                data.append(ContentNextNode.getChild(k).getContentDescription().toString() + "\n");
             }
         }
 
-        Log.e("APP_TEST","GG");
+        if(ContentNextNode2.getChildCount() == 0) return null;
+        for(int k = 0; k < ContentNextNode2.getChildCount(); k++)
+        {
+            if(ContentNextNode2.getChild(k).getContentDescription().equals(""))
+            {
+                if(ContentNextNode2.getChild(k).getChildCount() > 0)
+                {
+                    for(int d = 0; d < ContentNextNode2.getChild(k).getChildCount(); d++)
+                    {
+                        if(ContentNextNode2.getChild(k).getChild(d).getContentDescription().toString().length() > 0)
+                        {
+                            data.append(ContentNextNode2.getChild(k).getChild(d).getContentDescription().toString() + "\n");
+                        }
+                        else
+                        {
+                            if(ContentNextNode2.getChild(k).getChild(d).getChildCount() > 0)
+                            {
+                                for(int s = 0; s < ContentNextNode2.getChild(k).getChild(d).getChildCount(); s++)
+                                {
+                                    if(ContentNextNode2.getChild(k).getChild(d).getChild(s).getContentDescription().equals(""))
+                                    {
+                                        data.append(ContentNextNode2.getChild(k).getChild(d).getChild(s).getChild(0).getContentDescription().toString() + "\n");
+                                        data.append(ContentNextNode2.getChild(k).getChild(d).getChild(s).getChild(1).getContentDescription().toString() + "\n");data.append(ContentNextNode2.getChild(k).getChild(d).getChild(s).getContentDescription().toString() + "\n");
+                                    }
+                                    else
+                                    {
+                                        data.append(ContentNextNode2.getChild(k).getChild(d).getChild(s).getContentDescription().toString() + "\n");
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                data.append(ContentNextNode2.getChild(k).getContentDescription().toString() + "\n");
+            }
+        }
+
         Log.i(TAG,data.toString());
         return data.toString();
     }
@@ -69,7 +103,6 @@ public class PTTplusParser extends AppTempleteParser {
         AccessibilityNodeInfo data = null;
 
         int CacheNodechildcount = CacheNode.getChildCount();
-        Log.e("APP_CHAC",Integer.toString(CacheNodechildcount));
 
         if(CacheNode.getClassName() != null && CacheNode.getClassName().equals(name)) {
             return CacheNode;
@@ -78,7 +111,6 @@ public class PTTplusParser extends AppTempleteParser {
         for(int i=0; i<CacheNodechildcount ; i++){
             if(data!=null) break;
             data = SerachClassName(CacheNode.getChild(i),name);
-            Log.e("APP_IIII",data.toString());
         }
 
         return data;
