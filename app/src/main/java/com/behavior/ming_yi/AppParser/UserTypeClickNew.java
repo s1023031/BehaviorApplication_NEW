@@ -67,6 +67,22 @@ public class UserTypeClickNew extends AppTempleteParser{
             switch(this.app)
             {
                 case "Dcard":
+                    List <AccessibilityNodeInfo> title_dcard,content_dcard;
+
+                    content_dcard = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.sparkslab.dcardreader:id/text_title");
+                    title_dcard = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.sparkslab.dcardreader:id/text_excerpt");
+
+                    if(content_dcard.size() > 0)
+                    {
+                        data.append(content_dcard.get(0).getText().toString()+"\n");
+                    }
+
+                    if(title_dcard.size() > 0)
+                    {
+                        Log.e("APP_EWWEWEWEE",title_dcard.toString());
+                        data.append(title_dcard.get(0).getText().toString()+"\n");
+                    }
+
                     if(mAccessibilityNodeInfo.getChildCount() > 7 && mAccessibilityNodeInfo.getChild(3).getText().toString() != "")
                     {
                         Log.e("APP_TTTT",mAccessibilityNodeInfo.getChild(3).toString());
