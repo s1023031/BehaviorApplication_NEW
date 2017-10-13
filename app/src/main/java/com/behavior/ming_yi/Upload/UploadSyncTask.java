@@ -94,7 +94,8 @@ public class UploadSyncTask extends AsyncTask<String,Void,String> {
         try {
 //            urls = new URL("http://140.120.13.243:6680/accessibility_ten.php");
 //            urls = new URL("http://140.120.13.243:6680/PHPwrite.php");
-            urls = new URL("http://140.120.13.243:6680/IRI.php");
+            urls = new URL("http://140.120.13.243:6680/IRI_test.php");// 給自己測試用
+//            urls = new URL("http://140.120.13.243:6680/IRI_formal.php");// 給學姊用
             HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
 
             conn.setRequestMethod("POST");
