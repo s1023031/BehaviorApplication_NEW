@@ -35,7 +35,7 @@ public class UserTypeClickNew extends AppTempleteParser{
     public String AppTempleteParser(AccessibilityNodeInfo mAccessibilityNodeInfo)
     {
         StringBuilder data = new StringBuilder();
-
+        int flag = 0;
         Log.e(TAG,this.app);
         Log.e(TAG,this.event);
 
@@ -367,6 +367,62 @@ public class UserTypeClickNew extends AppTempleteParser{
 
                     break;
                 case "PTTplus":// 還無法登入
+                    AccessibilityNodeInfo ptt_title = mAccessibilityNodeInfo.getChild(0).getChild(0);
+                    AccessibilityNodeInfo ptt_article = mAccessibilityNodeInfo.getChild(0).getChild(2);
+                    if(ptt_title.getChildCount()==0 && ptt_article.getChildCount()==0)return null;
+
+                    for(int k = 0; k < ptt_title.getChildCount(); k++)
+                    {
+                        if(ptt_title.getChild(k).getContentDescription().equals(""))
+                        {
+                            if(ptt_title.getChild(k).getChildCount() > 0)
+                            {
+                                for(int s = 0; s < ptt_title.getChild(k).getChildCount(); s++)
+                                {
+                                    if(ptt_title.getChild(k).getChild(s).getContentDescription().equals(""))
+                                    {
+                                        //
+                                    }
+                                    else
+                                    {
+                                        data.append(ptt_title.getChild(k).getChild(s).getContentDescription());
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            data.append(ptt_title.getChild(k).getContentDescription().toString());
+                        }
+                    }
+
+                    for(int k = 0; k < ptt_article.getChildCount(); k++)
+                    {
+                        if(ptt_article.getChild(k).getContentDescription().equals("--\n"))
+                            break;
+
+                        if(ptt_article.getChild(k).getContentDescription().equals(""))
+                        {
+                            if(ptt_article.getChild(k).getChildCount() > 0)
+                            {
+                                for(int s = 0; s < ptt_article.getChild(k).getChildCount(); s++)
+                                {
+                                    if(ptt_article.getChild(k).getChild(s).getContentDescription().equals(""))
+                                    {
+                                        //
+                                    }
+                                    else
+                                    {
+                                        data.append(ptt_article.getChild(k).getChild(s).getContentDescription() + "\n");
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            data.append(ptt_article.getChild(k).getContentDescription().toString()+ "\n");
+                        }
+                    }
                     break;
                 case "TVBS":
                     List<AccessibilityNodeInfo> TVBS_title = mAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId("com.tvbs.news:id/item_title");
